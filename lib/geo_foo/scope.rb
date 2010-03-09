@@ -2,7 +2,7 @@ module GeoFoo
   module Scope
     
     def self.hello
-      puts "hllo"
+      puts "hello"
     end
     
   end
