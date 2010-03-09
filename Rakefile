@@ -1,16 +1,18 @@
 require 'rubygems'
 require 'rake'
 
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "geo_foo"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.summary = %Q{one-line summary of your gem}
+    gem.description = %Q{longer description of your gem}
     gem.email = "contact@smyck.org"
     gem.homepage = "http://github.com/hukl/geo_foo"
     gem.authors = ["hukl"]
     gem.add_development_dependency "minitest", ">= 0"
+    gem.files.include %w(lib/**/*.rb)
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
