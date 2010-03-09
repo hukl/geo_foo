@@ -23,7 +23,10 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "geo_foo.gemspec",
      "lib/geo_foo.rb",
+     "lib/geo_foo/active_record.rb",
+     "lib/geo_foo/core.rb",
      "lib/geo_foo/scope.rb",
      "test/helper.rb",
      "test/test_geo_foo.rb"
