@@ -2,8 +2,8 @@
 
 Run
 
-+rake build+
-+rake install+
+rake build
+rake install
 
 == Note on Patches/Pull Requests
  
