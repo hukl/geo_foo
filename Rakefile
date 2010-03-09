@@ -12,7 +12,6 @@ begin
     gem.homepage = "http://github.com/hukl/geo_foo"
     gem.authors = ["hukl"]
     gem.add_development_dependency "minitest", ">= 0"
-    gem.files.include %w(lib/**/*.rb)
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
