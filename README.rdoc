@@ -1,6 +1,9 @@
 = geo_foo
 
-Description goes here.
+Run
+
++rake build+
++rake install+
 
 == Note on Patches/Pull Requests
  
