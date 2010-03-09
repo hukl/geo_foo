@@ -6,11 +6,11 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "geo_foo"
-    gem.summary = %Q{one-line summary of your gem}
-    gem.description = %Q{longer description of your gem}
+    gem.summary = %Q{An extensible Postgis library}
+    gem.description = %Q{Geo makes it easy to interact with Postgis without hacking AR}
     gem.email = "contact@smyck.org"
     gem.homepage = "http://github.com/hukl/geo_foo"
-    gem.authors = ["hukl"]
+    gem.authors = ["agnat", "hukl"]
     gem.add_development_dependency "minitest", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
