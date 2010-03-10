@@ -7,7 +7,6 @@ module GeoFoo
   
   module ClassMethods
     def add_geo_foo
-      puts "ar"
       self.named_scope :within_radius, lambda { |lat, lon, radius|
         {
           :conditions => [

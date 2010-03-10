@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["agnat", "hukl"]
-  s.date = %q{2010-03-09}
+  s.date = %q{2010-03-10}
   s.description = %q{Geo makes it easy to interact with Postgis without hacking AR}
   s.email = %q{contact@smyck.org}
   s.extra_rdoc_files = [
