@@ -1,5 +1,8 @@
 module GeoFoo
   module ActiveRecord
+    
+    autoload :Migration, 'geo_foo/active_record/migration'
+    
     def self.included(base)
       base.extend ClassMethods
     end
