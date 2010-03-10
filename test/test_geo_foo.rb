@@ -30,6 +30,6 @@ class TestGeoFoo < Test::Unit::TestCase
   end
 
   def query_scalar sql
-    query(sql)[0][0]
+    query(sql).first.first
   end
 end
