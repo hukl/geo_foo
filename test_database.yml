@@ -1,0 +1,3 @@
+# always use adapter: postgresql
+username: postgres
+database: geo_foo_test
