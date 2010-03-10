@@ -6,6 +6,10 @@ module GeoFoo
 
 end
 
-ActiveRecord::Base.class_eval do
-  include GeoFoo::ActiveRecord
+begin
+  ActiveRecord::Base.class_eval do
+    include GeoFoo::ActiveRecord
+  end
+rescue
+  true
 end

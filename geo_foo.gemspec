@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
      "lib/geo_foo.rb",
      "lib/geo_foo/active_record.rb",
      "lib/geo_foo/core.rb",
+     "lib/geo_foo/numeric.rb",
      "lib/geo_foo/scope.rb",
      "test/helper.rb",
      "test/test_geo_foo.rb"
