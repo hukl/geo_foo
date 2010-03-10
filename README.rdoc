@@ -9,7 +9,7 @@ Run
 To run the tests you need a postgresql server with postgis extensions installed.
 
 - create an empty database from your postgis template 
-- set your settings in +test_database.yml+.
+- set your settings in <tt>test_database.yml</tt>.
 
 Now run:
   rake [test]
