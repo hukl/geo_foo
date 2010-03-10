@@ -1,7 +1,7 @@
 require 'geo_foo/core'
 require 'helper'
 
-class TestGeoFoo < MiniTest::Unit::TestCase
+class TestGeoFoo < Test::Unit::TestCase
   def test_database_connection
     # perform a query first to 'wake-up' the connection
     assert_equal(query_scalar("SELECT 5").to_i, 5)

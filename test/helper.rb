@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'minitest/unit'
+require 'test/unit'
 require 'active_record'
 
 config_file = File.join(File.dirname(__FILE__), '..', 'test_database.yml')
@@ -11,7 +11,5 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'geo_foo'
 
-class MiniTest::Unit::TestCase
+class Test::Unit::TestCase
 end
-
-MiniTest::Unit.autorun
