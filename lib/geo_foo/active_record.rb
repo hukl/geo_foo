@@ -7,14 +7,17 @@ module GeoFoo
   
   module ClassMethods
     def add_geo_foo
-      self.named_scope :within_radius, lambda { |lat, lon, radius|
-        {
-          :conditions => [
-            "ST_DWithin(#{GeoFoo::Core.as_point(lat,lon)}, point, #{bbox_size(lat, radius)})"\
-            " AND ST_Distance_Sphere(point, #{GeoFoo::Core.as_point(lat,lon)}) < #{radius}"
-          ]
-        }
-      }
+      self.class_eval do
+        def self.within_radius lat, lon, radius
+          scoped(
+            :conditions => [
+              "ST_DWithin(#{GeoFoo::Core.as_point(lat,lon)}, "\
+              "point, #{bbox_size(lat, radius)}) AND ST_Distance_Sphere(" \
+              "point, #{GeoFoo::Core.as_point(lat,lon)}) < #{radius}"
+            ]
+          )
+        end
+      end
     end
     
     # XXX handle case where lat is (close to) +-90deg (poles)
