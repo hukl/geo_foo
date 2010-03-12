@@ -26,4 +26,4 @@ Now run:
 
 == Copyright
 
-Copyright (c) 2010 hukl. See LICENSE for details.
+Copyright (c) 2010 hukl, agnat. See LICENSE for details.

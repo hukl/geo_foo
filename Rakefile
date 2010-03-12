@@ -6,8 +6,8 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "geo_foo"
-    gem.summary = %Q{An extensible Postgis library}
-    gem.description = %Q{Geo makes it easy to interact with Postgis without hacking AR}
+    gem.summary = %Q{An experimental and extensible Rails/Postgis library}
+    gem.description = %Q{Geo makes it easy to interact with Postgis without hacking too deep into AR. It is in a very early stage and should be considered experimental at most}
     gem.email = "contact@smyck.org"
     gem.homepage = "http://github.com/hukl/geo_foo"
     gem.authors = ["agnat", "hukl"]

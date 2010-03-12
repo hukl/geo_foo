@@ -26,3 +26,4 @@ module GeoFoo
     end
   end
 end
+
