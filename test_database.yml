@@ -1,5 +1,6 @@
 # always use adapter: postgresql
 adapter: postgresql
+encoding: unicode
 username: postgres
 database: geo_foo_test
 template: template_postgis

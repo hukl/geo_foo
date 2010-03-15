@@ -5,12 +5,13 @@ require 'models/location'
 class TestGeoFoo < ActiveSupport::TestCase
   
   def setup
-    ActiveRecord::Base.connection.execute(
-      "CREATE TABLE locations (
-         id    serial PRIMARY KEY,
-         point geometry
-       );"
-    );
+    query = [
+      "CREATE TABLE locations ( id serial PRIMARY KEY );",
+      "SELECT AddGeometryColumn('locations', 'point', 4326, 'POINT', 2);",
+      "CREATE INDEX locations_point_index ON locations USING GIST (point);"
+    ].join
+    
+    ActiveRecord::Base.connection.execute(query)
   end
   
   def teardown
@@ -66,8 +67,15 @@ class TestGeoFoo < ActiveSupport::TestCase
   
   test "point to coords" do
     location = Location.create :point => point_for( 53.1, 13.1 )
-    assert_equal 53.1, location.point_to_coords[:latitude]
-    assert_equal 13.1, location.point_to_coords[:longitude]
+    
+    assert (53.09...53.11).include?( location.point_to_coords[:latitude].to_f )
+    assert (13.09...13.11).include?( location.point_to_coords[:longitude].to_f )
+  end
+  
+  test "find_coords_by_id" do
+    Location.create :point => point_for( 53.1, 13.1 )
+    assert (53.09...53.11).include?( Location.find_coords_by_id(Location.last.id)[0])
+    assert (13.09...13.11).include?( Location.find_coords_by_id(Location.last.id)[1])
   end
   
 end
