@@ -27,7 +27,7 @@ class ActiveSupport::TestCase
   end
   
   def point_for lat, lon
-    execute("SELECT #{GeoFoo.as_point(53.0, 13.0)}")[0]["st_geomfromtext"]
+    execute("SELECT #{GeoFoo.as_point(lat, lon)}")[0]["st_geomfromtext"]
   end
   
 end
