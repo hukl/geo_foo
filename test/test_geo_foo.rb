@@ -5,12 +5,12 @@ require 'models/location'
 class TestGeoFoo < ActiveSupport::TestCase
   
   def setup
-      ActiveRecord::Base.connection.execute(
-        "CREATE TABLE locations (
-           id    integer,
-           point geometry
-         );"
-      )
+    ActiveRecord::Base.connection.execute(
+      "CREATE TABLE locations (
+         id    serial PRIMARY KEY,
+         point geometry
+       );"
+    );
   end
   
   def teardown
@@ -55,6 +55,19 @@ class TestGeoFoo < ActiveSupport::TestCase
     Location.create :point => point_for( 53.0000002, 13.0000002 )
     
     assert_equal 2, Location.within_radius(53.0000001, 13.0000001, 100.0).size
+  end
+  
+  test "find no locations within radius" do
+    Location.create :point => point_for( 53.0000001, 13.0000001 )
+    Location.create :point => point_for( 53.0000002, 13.0000002 )
+    
+    assert_equal 0, Location.within_radius(54.0, 14.0, 100.0).size
+  end
+  
+  test "point to coords" do
+    location = Location.create :point => point_for( 53.1, 13.1 )
+    assert_equal 53.1, location.point_to_coords[:latitude]
+    assert_equal 13.1, location.point_to_coords[:longitude]
   end
   
 end
