@@ -21,7 +21,9 @@ class TestGeoFoo < ActiveSupport::TestCase
   end
   
   test "postgis database is present" do
-    assert(query('SELECT postgis_full_version()'))
+    assert(query('SELECT postgis_full_version()'), "postgis functions present")
+    assert(query('SELECT count(*) FROM geometry_columns'), "postgis tables present")
+    assert(query('SELECT count(*) FROM spatial_ref_sys'), "postgis tables present")
   end
 
   test "as_point" do
