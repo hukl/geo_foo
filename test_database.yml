@@ -1,3 +1,5 @@
 # always use adapter: postgresql
+adapter: postgresql
 username: postgres
 database: geo_foo_test
+template: template_postgis
