@@ -7,6 +7,7 @@ class TestGeoFoo < ActiveSupport::TestCase
   def setup
       ActiveRecord::Base.connection.execute(
         "CREATE TABLE locations (
+           id    integer,
            point geometry
          );"
       )
@@ -37,8 +38,23 @@ class TestGeoFoo < ActiveSupport::TestCase
     assert_equal(query_scalar("SELECT ST_Y(#{point})").to_i, 5)
   end
   
-  test "ar" do
+  test "setup of Location model" do
     assert_not_nil Location
+  end
+    
+  test "creating a location" do
+    assert_not_nil Location.create :point => point_for( 53.0, 13.0 )
+  end
+  
+  test "within_radius is defined" do
+    assert defined?(Location.within_radius), '#within_radius is not defined'
+  end
+  
+  test "find locations within radius" do
+    Location.create :point => point_for( 53.0000001, 13.0000001 )
+    Location.create :point => point_for( 53.0000002, 13.0000002 )
+    
+    assert_equal 2, Location.within_radius(53.0000001, 13.0000001, 100.0).size
   end
   
 end
