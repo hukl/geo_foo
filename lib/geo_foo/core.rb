@@ -1,22 +1,24 @@
 module GeoFoo
   
+  SRID = 4326 # WGS-84
+  EarthRadius = 6370986.0 # meters (as used by postgis' ST_Distance_Sphere())
+  
+  # return a postgis string representation of the given coordinates
+  def self.as_point lat, lon
+    # Intentionally use (lat,lon) and not (lon,lat), because latitude is the
+    # 'horizontal' coordinate.
+    # See: http://archives.postgresql.org/pgsql-general/2008-02/msg01393.php
+    "ST_GeomFromText('POINT(#{lon} #{lat})', #{SRID})"
+  end
+  
   module Core
-    SRID = 4326 # WGS-84
-    EarthRadius = 6370986.0 # meters (as used by postgis' ST_Distance_Sphere())
-    TableName = "locations"
+    
+    # TableName = "locations"
   
     # execute an SQL query on the database 
-    def self.execute query
-      ActiveRecord::Base.connection.execute( query ).to_a
-    end
-  
-    # return a postgis string representation of the given coordinates
-    def self.as_point lat, lon
-      # Intentionally use (lat,lon) and not (lon,lat), because latitude is the
-      # 'horizontal' coordinate.
-      # See: http://archives.postgresql.org/pgsql-general/2008-02/msg01393.php
-      "ST_GeomFromText('POINT(#{lon} #{lat})', #{SRID})"
-    end
+    # def self.execute query
+    #   ActiveRecord::Base.connection.execute( query ).to_a
+    # end
   
     # find all locations within a radius for a given location
     def self.find_neighbours_by_coords lat, lon, radius=100.0
@@ -37,22 +39,22 @@ module GeoFoo
       # Intentionally return (y,x) which corresponds to (lat,lon). See as_point().
       [r["st_y"].to_f, r["st_x"].to_f]
     end
-  
-    # store a point in the location table. returns the points id.
-    def self.store_location lat, lon
-      (execute "INSERT INTO #{TableName} (point) VALUES (#{as_point(lat,lon)})"\
-               "RETURNING id").first["id"].to_i
-    end
-  
-    # delete a location from the database
-    def self.delete_location id
-      execute "DELETE FROM #{TableName} WHERE id = #{id}"
-    end
+    
+    # # store a point in the location table. returns the points id.
+    # def self.store_location lat, lon
+    #   (execute "INSERT INTO #{TableName} (point) VALUES (#{as_point(lat,lon)})"\
+    #            "RETURNING id").first["id"].to_i
+    # end
+    # 
+    # # delete a location from the database
+    # def self.delete_location id
+    #   execute "DELETE FROM #{TableName} WHERE id = #{id}"
+    # end
   
     # returns the number of locations currently in the database
-    def self.location_count
-      (execute "SELECT count(*) FROM #{TableName}").first["count"].to_i
-    end
+    # def self.location_count
+    #   (execute "SELECT count(*) FROM #{TableName}").first["count"].to_i
+    # end
   
     # migration helper: create the database table
     def self.create_table
