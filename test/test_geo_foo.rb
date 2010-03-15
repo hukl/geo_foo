@@ -15,15 +15,17 @@ class TestGeoFoo < ActiveSupport::TestCase
   end
   
   def teardown
-    ActiveRecord::Base.connection.execute(
-      "DROP TABLE locations;"
-    )
+    query = [
+      "DROP TABLE locations;",
+      "DELETE FROM geometry_columns WHERE f_table_name = 'locations';"
+    ].join
+    ActiveRecord::Base.connection.execute(query)
   end
   
   test "postgis database is present" do
-    assert(query('SELECT postgis_full_version()'), "postgis functions present")
-    assert(query('SELECT count(*) FROM geometry_columns'), "postgis tables present")
-    assert(query('SELECT count(*) FROM spatial_ref_sys'), "postgis tables present")
+    assert(query('SELECT postgis_full_version()'), 'postgis functions present')
+    assert(query('SELECT count(*) FROM geometry_columns'), 'postgis tables present')
+    assert(query('SELECT count(*) FROM spatial_ref_sys'), 'postgis tables present')
   end
 
   test "as_point" do
