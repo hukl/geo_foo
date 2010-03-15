@@ -20,14 +20,8 @@ class TestGeoFoo < ActiveSupport::TestCase
     )
   end
   
-  test "database connection" do
-    # perform a query first to 'wake-up' the connection
-    assert_equal(query_scalar("SELECT 5").to_i, 5)
-    assert ActiveRecord::Base.connected?, "database connection esteblished"
-  end
-
   test "postgis database is present" do
-    assert(query('SELECT count(*) FROM geometry_columns'))
+    assert(query('SELECT postgis_full_version()'))
   end
 
   test "as_point" do
@@ -68,8 +62,8 @@ class TestGeoFoo < ActiveSupport::TestCase
   test "point to coords" do
     location = Location.create :point => point_for( 53.1, 13.1 )
     
-    assert (53.09...53.11).include?( location.point_to_coords[:latitude].to_f )
-    assert (13.09...13.11).include?( location.point_to_coords[:longitude].to_f )
+    assert (53.09...53.11).include?( location.point_to_coords[:latitude] )
+    assert (13.09...13.11).include?( location.point_to_coords[:longitude] )
   end
   
   test "find_coords_by_id" do

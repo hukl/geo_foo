@@ -43,7 +43,7 @@ module GeoFoo
         "WHERE id = #{self.id}"
       )[0]
       
-      { :latitude => result["st_y"], :longitude => result["st_x"] }
+      { :latitude => result["st_y"].to_f, :longitude => result["st_x"].to_f }
     end
   end
 end
