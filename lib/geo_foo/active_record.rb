@@ -38,8 +38,10 @@ module GeoFoo
   module InstanceMethods
     
     def point_to_coords
-      result = self.class.connection.execute(
-        "SELECT ST_Y(point), ST_X(point) FROM #{self.class.table_name} " \
+      base = self.class
+      
+      result = base.connection.execute(
+        "SELECT ST_Y(point), ST_X(point) FROM #{base.table_name} " \
         "WHERE id = #{self.id}"
       )[0]
       

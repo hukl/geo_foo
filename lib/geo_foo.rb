@@ -1,3 +1,4 @@
+require 'geo_foo/core'
 require 'geo_foo/scope'
 require 'geo_foo/active_record'
 require 'geo_foo/numeric'

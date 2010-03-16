@@ -1,15 +1,12 @@
-require 'geo_foo/core'
 require 'helper'
 require 'models/location'
 
 class TestGeoFoo < ActiveSupport::TestCase
   
   def setup
-    query = [
-      "CREATE TABLE locations ( id serial PRIMARY KEY );",
-      "SELECT AddGeometryColumn('locations', 'point', 4326, 'POINT', 2);",
-      "CREATE INDEX locations_point_index ON locations USING GIST (point);"
-    ].join
+    query = "CREATE TABLE locations ( id serial PRIMARY KEY );"\
+            "SELECT AddGeometryColumn('locations', 'point', 4326, 'POINT', 2);"\
+            "CREATE INDEX locations_point_index ON locations USING GIST (point);"
     
     ActiveRecord::Base.connection.execute(query)
   end
@@ -22,19 +19,13 @@ class TestGeoFoo < ActiveSupport::TestCase
     ActiveRecord::Base.connection.execute(query)
   end
   
-  test "postgis database is present" do
-    assert(query('SELECT postgis_full_version()'), 'postgis functions present')
-    assert(query('SELECT count(*) FROM geometry_columns'), 'postgis tables present')
-    assert(query('SELECT count(*) FROM spatial_ref_sys'), 'postgis tables present')
-  end
-
   test "as_point" do
-    latitude = 5
+    latitude  = 5
     longitude = 42
     point = GeoFoo.as_point latitude, longitude
-    assert(query("SELECT #{point}"))
-    assert_equal(query_scalar("SELECT ST_X(#{point})").to_i, 42)
-    assert_equal(query_scalar("SELECT ST_Y(#{point})").to_i, 5)
+    assert query( "SELECT #{point}" )
+    assert_equal 42, query_scalar("SELECT ST_X(#{point})").to_i
+    assert_equal 5,  query_scalar("SELECT ST_Y(#{point})").to_i
   end
   
   test "setup of Location model" do
@@ -47,6 +38,10 @@ class TestGeoFoo < ActiveSupport::TestCase
   
   test "within_radius is defined" do
     assert defined?(Location.within_radius), '#within_radius is not defined'
+  end
+  
+  test "as_point is defined" do
+    assert defined?(GeoFoo.as_point), '#as_point is not defined'
   end
   
   test "find locations within radius" do
