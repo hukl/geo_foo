@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{geo_foo}
-  s.version = "0.0.1"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["agnat", "hukl"]
-  s.date = %q{2010-03-12}
+  s.date = %q{2010-03-16}
   s.description = %q{Geo makes it easy to interact with Postgis without hacking too deep into AR. It is in a very early stage and should be considered experimental at most}
   s.email = %q{contact@smyck.org}
   s.extra_rdoc_files = [
@@ -30,16 +30,18 @@ Gem::Specification.new do |s|
      "lib/geo_foo/numeric.rb",
      "lib/geo_foo/scope.rb",
      "test/helper.rb",
+     "test/models/location.rb",
      "test/test_geo_foo.rb",
      "test_database.yml"
   ]
   s.homepage = %q{http://github.com/hukl/geo_foo}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.5}
+  s.rubygems_version = %q{1.3.6}
   s.summary = %q{An experimental and extensible Rails/Postgis library}
   s.test_files = [
     "test/helper.rb",
+     "test/models/location.rb",
      "test/test_geo_foo.rb"
   ]
 
