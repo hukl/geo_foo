@@ -5,7 +5,7 @@ Run
   rake build
   rake install
 
-= Running the tests
+== Running the tests
 To run the tests you need a postgresql server with postgis extensions installed.
 
 * create an empty database +geo_foo_test+ from your postgis template 
@@ -13,6 +13,33 @@ To run the tests you need a postgresql server with postgis extensions installed.
 
 Now run:
   rake [test]
+
+== Creating the postgis template
+To simplify working with postgis databases it is recommended to create a
+postgis aware template named +template_postgis+. As a privileged database
+user (+postgres+) create a new database template:
+
+  psql -U postgres -c "CREATE DATABASE template_postgis WITH template = template1"
+  psql -U postgres -c "UPDATE pg_database SET datistemplate = TRUE WHERE datname = 'template_postgis'"
+  psql -U postgres template_postgis -c "CREATE LANGUAGE plpgsql"
+
+Now import the postgis functionality into the new template. The location of the
+SQL files varies from system to system. It often depends on the postgresql
+server version, too. Please note that older versions of postgis used
+<tt>lwpostgis.sql</tt> instead of <tt>postgis.sql</tt>.
+
+<b>Mac OS X with macports</b>
+  psql -U postgres template_postgis -f /opt/local/share/postgresql84/contrib/postgis.sql
+  psql -U postgres template_postgis -f /opt/local/share/postgresql84/contrib/spatial_ref_sys.sql
+
+<b>Debian</b>
+  psql -U postgres template_postgis -f /usr/share/postgresql-8.3-postgis/lwpostgis.sql
+  psql -U postgres template_postgis -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql
+
+Finalize the template with the following commands
+  psql -U postgres template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC"
+  psql -U postgres template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC"
+  psql -U postgres template_postgis -c "VACUUM FREEZE"
 
 == Note on Patches/Pull Requests
  
